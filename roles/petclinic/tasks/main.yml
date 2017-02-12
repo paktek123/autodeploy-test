@@ -1,0 +1,9 @@
+---
+- name: systemd petclinic
+  copy:
+  - src: petclinic.service
+  - dest: /etc/systemd/system/petclinic.service
+  - owner: petclinic
+  - group: petclinic
+  - mode: 0644
+  notify: petclinic

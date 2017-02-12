@@ -1,0 +1,13 @@
+[Unit]
+Description=petclinic app
+
+[Service]
+ExecStart=/opt/petclinic/grailsw run-app
+
+User=petclinic
+Group=petclinic
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

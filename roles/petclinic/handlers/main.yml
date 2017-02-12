@@ -1,0 +1,6 @@
+---
+- name: restart petclinic
+  service:
+    name: petclinic
+    state: restarted
+    enabled: yes
