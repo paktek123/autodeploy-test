@@ -1,22 +1,51 @@
 ---
-- group:
-    name: petclinic
+#- group:
+#    name: petclinic
+#
+#- user:
+#    name: petclinic
+#    group: petclinic
 
-- user:
-    name: petclinic
-    group: petclinic
+#- file: 
+#    path: /opt/petclinic
+#    state: directory
+#    owner: petclinic
+#    group: petclinic
+
+- apt:
+    name: openjdk-8-jdk
+
+- apt:
+    name: tomcat7
 
 - name: put git repo in place
   git:
     repo: https://github.com/secretescapes/grails-petclinic
-    dest: /opt/petclinic
+    dest: /tmp/petclinic
     version: fd16b6687437f52e390a6faec82cc94f981b7565 
 
-- name: systemd petclinic
-  copy:
-    src: petclinic.service
-    dest: /etc/systemd/system/petclinic.service
+- name: build war
+  #shell: /tmp/petclinic/grailsw war
+  shell: JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 ./grailsw war
+  args:
+    chdir: /tmp/petclinic
+
+- file:
+    path: /tmp/petclinic
+    state: directory
     owner: petclinic
     group: petclinic
-    mode: 0644
-  notify: petclinic
+    recurse: yes 
+
+###- file: dest=/opt/petclinic/ owner=petclinic group=petclinic mode=644 recurse=yes
+
+#- name: systemd petclinic
+#  copy:
+#    src: petclinic.service
+#    dest: /etc/systemd/system/petclinic.service
+#   # owner: petclinic
+#   # group: petclinic
+#    mode: 0644
+#    owner: root
+#    group: root
+#  notify: petclinic
