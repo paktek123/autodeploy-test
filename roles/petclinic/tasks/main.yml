@@ -1,4 +1,11 @@
 ---
+- group:
+    name: petclinic
+
+- user:
+    name: petclinic
+    group: petclinic
+
 - name: put git repo in place
   git:
     repo: https://github.com/secretescapes/grails-petclinic
