@@ -1,4 +1,10 @@
 ---
+- name: put git repo in place
+  git:
+  - repo: https://github.com/secretescapes/grails-petclinic
+  - dest: /opt/petclinic
+  - version: fd16b6687437f52e390a6faec82cc94f981b7565 
+
 - name: systemd petclinic
   copy:
   - src: petclinic.service
